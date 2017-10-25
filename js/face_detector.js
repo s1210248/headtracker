@@ -60,6 +60,10 @@ function FaceDetector(video_name) {
 	    var s = canvas.width / jsfeat_buffer.cols;
             ctx.strokeStyle = "#00ff00";
 	    ctx.strokeRect(r.x*s, r.y*s, r.width*s, r.height*s);
+	    //centroid of face
+	    center = [(r.x*s + r.width*s)/2, (r.y*s + r.height*s)/2];
+	    var wma = smoother(10);
+	    
       }
     }   
 }
