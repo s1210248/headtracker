@@ -33,13 +33,8 @@ function convertCSVtoArray(str){ // 読み込んだCSVデータが文字列と�
         }
        smoothResult[i] = smoother(result[i],50);
     }
-    
-    
-    alert(result[49][1]); //24
-    alert(smoothResult[200][3]);// 21.125
-    alert(smoothResult[50][1]);
-    
 
+alert("change1");
 //execute
 //var content =  [[1,2,3],[4,5,6],[7,8,9]]
 exportcsv(smoothResult);
@@ -62,7 +57,7 @@ function exportcsv(content){
   //set csv-data to a-tag on html
   var download = document.getElementById('download');
   download.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
-  download.setAttribute('download', 'smooth.csv');
+  download.setAttribute('download', 'smoothResult50.csv');
 }
 }
 

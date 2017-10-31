@@ -9,7 +9,8 @@ var tmpy = [];
 function smoother(center,n){
    var wma = [2];
    var nextwma = [2];
-    
+   denom = (n*(n + 1))/2;
+   
     if(count < n){
     tmpx[count] = center[0];
     tmpy[count] = center[1];
@@ -19,16 +20,18 @@ function smoother(center,n){
     numer[0] += (count * center[0]);
     numer[1] += (count * center[1]);
     if(count == n){
-    denom = (n*(n + 1))/2;
+    //denom = (n*(n + 1))/2;
     wma[0] = numer[0]/denom;
     wma[1] = numer[1]/denom;
     return wma;
     }
-    return center;
+    wma[0] = 0;
+    wma[1] = 0;
+    return wma;
     }
     
     if(count >= n){
-    denom = (n*(n + 1))/2;
+    //denom = (n*(n + 1))/2;
     nextnumer[0] = numer[0] + n*center[0] - total[0];
     numer[0] = nextnumer[0];
     total[0] = total[0] + center[0] - tmpx[0];
