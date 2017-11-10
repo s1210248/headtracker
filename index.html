@@ -1,28 +1,29 @@
 <html lang="en">
   <head>
     <title>Face detector</title>
+    <link rel="stylesheet" href="css/sample.css" type="text/css">
   </head>
   
   <body>
-    <video id="video" width="640" height="480" style="display:none;"></video>
-    
+    <div id="drawingArea" class = "relative">  <video id="video" width="640" height="480"></video> </div>
     <script type="text/javascript" src="js/jsfeat-min.js"></script>
     <script type="text/javascript" src="js/bbf_face.js"></script>
     <script type="text/javascript" src="js/face_detector.js"></script>
     <script type="text/javascript" src="js/smooth.js"></script>
-    <script>
-      var f = new FaceDetector("video");
-     /* var array = [2];
-      for (var i = 0; i < 10; i++) {
-        array[0] = i;
-        array[1] = i;
-       var f = smoother(array,3);
-        console.log(i+1 + "回目");
-        console.log("x=" + f[0]);
-        console.log("y=" + f[1]);
-      }*/
-      
-      
-    </script>
+    <script type="text/javascript" src="simple_webgl/three.js"></script>
+	  <script type="text/javascript" src="simple_webgl/OBJLoader_v1.js"></script>
+	  <script type="text/javascript" src="simple_webgl/mesh.js"></script>
+	  <script type="text/javascript" src="simple_webgl/detector.js"></script>
+	  <script type="text/javascript" src="simple_webgl/orbitControls.js"></script>
+	  <script type="text/javascript" src="simple_webgl/main.js"></script>
+
+	<script>
+    var f = new FaceDetector("video");
+		// Create scene and render
+	if (Detector.webgl) {
+		init();
+		animate();
+	} 
+	</script>
   </body>
 </html>

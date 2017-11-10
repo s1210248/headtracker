@@ -1,0 +1,15 @@
+.relative{
+    position: relative;
+}
+#drawingArea {
+    z-index: 1;
+}
+#video {
+    display: none;
+}
+#can{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}

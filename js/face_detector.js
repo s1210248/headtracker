@@ -1,4 +1,4 @@
-
+var wma = [0,0];
 function FaceDetector(video_name) {
     var MAX_SIZE = 300;
 
@@ -31,7 +31,8 @@ function FaceDetector(video_name) {
     document.body.appendChild(canvas);
 	canvas.width = w;
 	canvas.height = h;
-	
+	canvas.id = "can";
+	console.log(canvas.id);
 	ctx = canvas.getContext('2d');
 	
 	jsfeat.bbf.prepare_cascade(jsfeat.bbf.face_cascade);
@@ -58,12 +59,16 @@ function FaceDetector(video_name) {
 	if (face_rects.length > 0) {
 	    var r = face_rects[face_rects.length-1];
 	    var s = canvas.width / jsfeat_buffer.cols;
-            ctx.strokeStyle = "#00ff00";
+        ctx.strokeStyle = "#00ff00";
 	    ctx.strokeRect(r.x*s, r.y*s, r.width*s, r.height*s);
 	    //centroid of face
-	    var center = [(r.x*s + r.width*s)/2, (r.y*s + r.height*s)/2];
-	    var wma = smoother(center, 10);
-	    
+	    ctx.strokeRect(250,200,45,20);
+	    var center = [(r.x*s + r.x*s + r.width*s)/2, (r.y*s + r.y*s + r.height*s)/2];
+	    wma = smoother(center, 50);
+	    wma[0] -= (canvas.width/2);
+	    wma[1] -= (canvas.height/2);
+	    wma[0] *= (window.innerWidth / (canvas.width/2));
+	    wma[1] *= (window.innerHeight / (canvas.height/2));
       }
     }   
 }
