@@ -1,4 +1,8 @@
 var wma = [0,0];
+var mesh_rot_y = 0;
+var mesh_rot_x = 0;
+var xt;
+var yt;
 function FaceDetector(video_name) {
     var MAX_SIZE = 300;
 
@@ -56,17 +60,21 @@ function FaceDetector(video_name) {
 	    return (b.confidence < a.confidence);
 	});
 	
+	xt = (Math.PI/2)/(canvas.width/8);
+	yt = (Math.PI/2)/(canvas.height/8);
 	if (face_rects.length > 0) {
 	    var r = face_rects[face_rects.length-1];
 	    var s = canvas.width / jsfeat_buffer.cols;
         ctx.strokeStyle = "#00ff00";
 	    ctx.strokeRect(r.x*s, r.y*s, r.width*s, r.height*s);
 	    //centroid of face
-	    ctx.strokeRect(250,200,45,20);
 	    var center = [(r.x*s + r.x*s + r.width*s)/2, (r.y*s + r.y*s + r.height*s)/2];
 	    wma = smoother(center, 50);
 	    wma[0] -= (canvas.width/2);
 	    wma[1] -= (canvas.height/2);
+	    mesh_rot_y = (wma[0] * xt);
+	    mesh_rot_x = (wma[1] * yt);
+	    console.log(mesh_rot_y);
 	    wma[0] *= (window.innerWidth / (canvas.width/2));
 	    wma[1] *= (window.innerHeight / (canvas.height/2));
       }

@@ -28,9 +28,10 @@ Mesh = function(scene) {
 		obj_geometry.computeVertexNormals();
 		obj_geometry.scale(700,700,700);
 		mesh.position.set(0,0,0);
+		mesh.rotation.set(0,0,0);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
-		console.log(mesh.position.x);
+	//	console.log(mesh.position.x);
 		scene.add(mesh);
         }, onProgress, onError);
 		//console.log(mesh);

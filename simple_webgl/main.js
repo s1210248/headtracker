@@ -90,6 +90,9 @@ function animate() {
    if(mesh){
     mesh.position.x = wma[0];
     mesh.position.y = wma[1];
+    mesh.rotation.y += (mesh_rot_y - mesh.rotation.y);
+    mesh.rotation.x += (mesh_rot_x - mesh.rotation.x);
+  //  console.log(mesh.rotation.y);
     }
     requestAnimationFrame(animate);//usagi
     g_renderer.render(g_scene, g_camera);
