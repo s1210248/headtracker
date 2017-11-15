@@ -9,24 +9,23 @@
 
 
 	<div id="drawingArea"></div>
-
 	<script type="text/javascript" src="three.js"></script>
 	<script type="text/javascript" src="OBJLoader_v1.js"></script>
 	<script type="text/javascript" src="mesh.js"></script>
 	<script type="text/javascript" src="detector.js"></script>
 	<script type="text/javascript" src="orbitControls.js"></script>
 	<script type="text/javascript" src="main.js"></script>
-
 	<script>
-	
-	
 		// Create scene and render
 		if (Detector.webgl) {
 			init();
 			animate();
 		} 
-	
 	</script>
-
+	<div id = "buttonArea">
+		<button type="button">transform</button>
+		<button type="button">rotation</button>
+	</div>
+	<button type="submit">送信する</button>
 </body>
 </html>

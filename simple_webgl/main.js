@@ -3,6 +3,10 @@ var g_controls;
 var g_camera, g_scene, g_renderer;
 var g_mesh;
 var floor
+var transFlag = false;
+var rotateFlag = false;
+var countTrans = 0;
+var countRotate = 0;
 
 function init() {
     g_scene = new THREE.Scene();
@@ -88,13 +92,44 @@ function animate() {
     g_controls.update();
     // Render scene
    if(mesh){
+       if(transFlag == true){
     mesh.position.x = wma[0];
     mesh.position.y = wma[1];
+       }
+       if(rotateFlag == true){
     mesh.rotation.y += (mesh_rot_y - mesh.rotation.y);
     mesh.rotation.x += (mesh_rot_x - mesh.rotation.x);
+       }
   //  console.log(mesh.rotation.y);
     }
     requestAnimationFrame(animate);//usagi
     g_renderer.render(g_scene, g_camera);
 }
 
+function changeTransValue(){
+    if(countTrans%2 == 0){
+    transFlag = true;
+    if(rotateFlag == true){
+    rotateFlag = false;
+    countRotate++;
+    }
+    countTrans++;
+    }else{
+        transFlag = false;
+        countTrans++;
+    }
+}
+
+function changeRotateValue(){
+    if(countRotate%2 == 0){
+    rotateFlag = true;
+    if(transFlag == true){
+    transFlag = false;
+    countTrans++;
+    }
+    countRotate++;
+    }else{
+        rotateFlag = false;
+        countRotate++;
+    }
+}

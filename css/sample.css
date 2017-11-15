@@ -13,3 +13,8 @@
     left: 0px;
     z-index: 2;
 }
+#changeMode{
+    position: absolute;
+    z-index: 3;
+    top: 250px;
+}
