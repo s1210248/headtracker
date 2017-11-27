@@ -1,4 +1,6 @@
 var mesh = null;
+var pass = '';
+var changePass = 0;
 
 Mesh = function(scene) {
 
@@ -19,14 +21,20 @@ Mesh = function(scene) {
 	};
 
 	var loader = new THREE.OBJLoader(manager );
-
-	loader.load( 'simple_webgl/data/bunny.obj', function( object ) {
+        loader.load( pass, function( object ) {
 		mesh = object.children[0];
 		var obj_geometry = mesh.geometry;
 		obj_geometry.normalsNeedUpdate = true;
 		obj_geometry.computeFaceNormals();
 		obj_geometry.computeVertexNormals();
+		if(pass == 'simple_webgl/data/bunny.obj'){
+                // For bunny.obj, use these scaling factors 
 		obj_geometry.scale(700,700,700);
+		}
+		if(pass == 'simple_webgl/data/suzanne.obj'){
+                // For suzanne.obj, use these scaling factors
+        obj_geometry.scale(100,100,100);
+		}
 		mesh.position.set(0,0,0);
 		mesh.rotation.set(0,0,0);
 		mesh.castShadow = true;

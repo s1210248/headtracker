@@ -5,8 +5,12 @@ var g_mesh;
 var floor
 var transFlag = false;
 var rotateFlag = false;
+var inverseFlag = false;
 var countTrans = 0;
 var countRotate = 0;
+var hemisphereLight;
+var ambientLight;
+var sunLight;
 
 function init() {
     g_scene = new THREE.Scene();
@@ -53,13 +57,13 @@ function init() {
 
 
 function createLights() {
-    var hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x101010, 0.9)
+    hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x101010, 0.9)
     g_scene.add(hemisphereLight);
 
-    var ambientLight = new THREE.AmbientLight(0x2f2f2f)
+    ambientLight = new THREE.AmbientLight(0x2f2f2f)
     g_scene.add(ambientLight);
 
-    var sunLight = new THREE.DirectionalLight(0xffffff, 0.30);
+    sunLight = new THREE.DirectionalLight(0xffffff, 0.30);
     sunLight.position.set(300, 600, 500);
     sunLight.castShadow = true;
     sunLight.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera());
@@ -84,7 +88,24 @@ function createFloor() {
 
 
 function createMesh() {
+  if(changePass == '0'){
+    pass = 'simple_webgl/data/bunny.obj';
+  }
+  if(changePass == '1'){
+    pass = 'simple_webgl/data/suzanne.obj';
+  }
   g_mesh = new Mesh(g_scene);
+}
+
+
+// rescale the value v from the interval [v1min, v1max]
+// to the interval [v2min, v2max]
+function rescale(v, v1min, v1max, v2min, v2max) {
+        var val = Math.max(Math.min(v, v1max), v1min);
+        var dv1 = v1max - v1min;
+        var t = (val - v1min) / dv1;
+        var dv2 = v2max - v2min;
+        return v2min + t*dv2;
 }
 
 
@@ -93,43 +114,57 @@ function animate() {
     // Render scene
    if(mesh){
        if(transFlag == true){
-    mesh.position.x = wma[0];
-    mesh.position.y = wma[1];
+           //console.log(wma[0]);
+	       var mesh_trans_x = rescale(wma[0], 100, 250, -300, 300);
+           var mesh_trans_y = rescale(-wma[1], -220, -75, -300, 300);
+
+           mesh.position.x += (mesh_trans_x - mesh.position.x);
+           mesh.position.y += (mesh_trans_y - mesh.position.y);
        }
-       if(rotateFlag == true){
-    mesh.rotation.y += (mesh_rot_y - mesh.rotation.y);
-    mesh.rotation.x += (mesh_rot_x - mesh.rotation.x);
+       if(rotateFlag == true && inverseFlag == false){
+           var mesh_rot_y = rescale(wma[0], 100, 250, -Math.PI/2, Math.PI/2);
+           var mesh_rot_x = rescale(wma[1], 50, 150, -Math.PI/2, Math.PI/2);
+
+	   mesh.rotation.y += (mesh_rot_y - mesh.rotation.y);
+	   mesh.rotation.x += (mesh_rot_x - mesh.rotation.x);
        }
-  //  console.log(mesh.rotation.y);
+       if(rotateFlag == true && inverseFlag == true){
+           var mesh_rot_y = rescale(-wma[0], -250, -100, -Math.PI/2, Math.PI/2);
+           var mesh_rot_x = rescale(wma[1], 50, 150, -Math.PI/2, Math.PI/2);
+
+	   mesh.rotation.y += (mesh_rot_y - mesh.rotation.y);
+	   mesh.rotation.x += (mesh_rot_x - mesh.rotation.x);
+       }
+       //  console.log(mesh.rotation.y);
     }
     requestAnimationFrame(animate);//usagi
     g_renderer.render(g_scene, g_camera);
 }
 
 function changeTransValue(){
-    if(countTrans%2 == 0){
+    if(document.getElementById("ct").checked){
     transFlag = true;
-    if(rotateFlag == true){
     rotateFlag = false;
-    countRotate++;
-    }
-    countTrans++;
-    }else{
-        transFlag = false;
-        countTrans++;
     }
 }
 
 function changeRotateValue(){
-    if(countRotate%2 == 0){
+    if(document.getElementById("cr").checked){
     rotateFlag = true;
-    if(transFlag == true){
     transFlag = false;
-    countTrans++;
     }
-    countRotate++;
+}
+function changePassFunc(){
+    var pullSellect = document.getElementById('so').selectedIndex;
+    changePass = document.getElementById('so').options[pullSellect].value;
+    g_scene.remove( mesh );
+    createMesh();
+}
+
+function inverseRotation(){
+    if(document.getElementById("op").checked){
+        inverseFlag = true;
     }else{
-        rotateFlag = false;
-        countRotate++;
+        inverseFlag = false;
     }
 }
