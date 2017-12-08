@@ -1,5 +1,7 @@
 var FizzyText = function() {
-
+  this.transformation = false;
+  this.rotation = false;
+  this.inverseRotation = false;
   this.color0 = 0xffffff; // CSS string
   this.color1 = 0x101010;// RGB array
   this.color2 = 0x2f2f2f;
@@ -13,7 +15,9 @@ var FizzyText = function() {
 window.onload = function() {
   text = new FizzyText();
   var gui = new dat.GUI();
-  
+  gui.add(text, 'transformation').onChange(setTransVal);
+  gui.add(text, 'rotation').onChange(setRotateVal);
+  gui.add(text, 'inverseRotation').onChange(setInverseRotation);
   var f1 = gui.addFolder('HemisphereLight');
   f1.addColor(text, 'color0').onChange(setHemisphereVal);
   f1.addColor(text, 'color1').onChange(setHemisphereVal);
@@ -41,4 +45,22 @@ function setSunVal(){
     g_scene.remove(sunLight);
     sunLight = new THREE.DirectionalLight(text.color3, 0.30);
     g_scene.add(sunLight);
+}
+
+function setTransVal(checked){
+        if(checked) transFlag = true;
+        else transFlag = false;
+}
+
+function setRotateVal(checked){
+        if(checked) rotateFlag = true;
+        else rotateFlag = false;
+}
+
+function setInverseRotation(checked){
+    if(checked){
+        inverseFlag = true;
+    }else{
+        inverseFlag = false;
+    }
 }

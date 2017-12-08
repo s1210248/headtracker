@@ -26,7 +26,7 @@ function init() {
 	antialias : true
     });
     g_renderer.shadowMap.enabled = true;
-    g_renderer.setClearColor(0xbbd7e9, 1);
+    g_renderer.setClearColor(0x0, 1);
     container.appendChild(g_renderer.domElement);
 
     g_controls = new THREE.OrbitControls(g_camera, g_renderer.domElement);
@@ -51,7 +51,7 @@ function init() {
     resizeCallback();
 
     createLights();
-    createFloor();
+   // createFloor();
     createMesh();
 }
 

@@ -24,11 +24,13 @@ Mesh = function(scene) {
         loader.load( pass, function( object ) {
 		mesh = object.children[0];
 		var obj_geometry = mesh.geometry;
+		console.log(mesh);
 		obj_geometry.normalsNeedUpdate = true;
 		obj_geometry.computeFaceNormals();
 		obj_geometry.computeVertexNormals();
 		if(pass == 'simple_webgl/data/bunny.obj'){
                 // For bunny.obj, use these scaling factors 
+        // create geometry object
 		obj_geometry.scale(700,700,700);
 		}
 		if(pass == 'simple_webgl/data/suzanne.obj'){
