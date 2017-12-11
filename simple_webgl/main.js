@@ -88,10 +88,10 @@ function createFloor() {
 
 
 function createMesh() {
-  if(changePass == '0'){
+  if(changePass == 0){
     pass = 'simple_webgl/data/bunny.obj';
   }
-  if(changePass == '1'){
+  if(changePass == 1){
     pass = 'simple_webgl/data/suzanne.obj';
   }
   g_mesh = new Mesh(g_scene);
@@ -154,12 +154,7 @@ function changeRotateValue(){
     transFlag = false;
     }
 }
-function changePassFunc(){
-    var pullSellect = document.getElementById('so').selectedIndex;
-    changePass = document.getElementById('so').options[pullSellect].value;
-    g_scene.remove( mesh );
-    createMesh();
-}
+
 
 function inverseRotation(){
     if(document.getElementById("op").checked){

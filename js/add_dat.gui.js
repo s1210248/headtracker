@@ -1,4 +1,5 @@
 var FizzyText = function() {
+  this.object = 0;
   this.transformation = false;
   this.rotation = false;
   this.inverseRotation = false;
@@ -15,6 +16,7 @@ var FizzyText = function() {
 window.onload = function() {
   text = new FizzyText();
   var gui = new dat.GUI();
+  gui.add(text, 'object', { bunny: 0, suzanne: 1}).onChange(changePassFunc);
   gui.add(text, 'transformation').onChange(setTransVal);
   gui.add(text, 'rotation').onChange(setRotateVal);
   gui.add(text, 'inverseRotation').onChange(setInverseRotation);
@@ -63,4 +65,10 @@ function setInverseRotation(checked){
     }else{
         inverseFlag = false;
     }
+}
+
+function changePassFunc(checked){
+    changePass = checked;
+    g_scene.remove( mesh );
+    createMesh();
 }
