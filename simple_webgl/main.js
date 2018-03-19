@@ -115,7 +115,7 @@ function animate() {
    if(mesh){
        if(transFlag == true){
            //console.log(wma[0]);
-	       var mesh_trans_x = rescale(wma[0], 100, 250, -300, 300);
+	       var mesh_trans_x = rescale(wma[0], 50, 250, -window.innerWidth, window.innerWidth);
            var mesh_trans_y = rescale(-wma[1], -220, -75, -300, 300);
 
            mesh.position.x += (mesh_trans_x - mesh.position.x);
